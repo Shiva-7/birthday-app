@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Sparkle</title>
+    <script>
+        window.onload = function () {
+            alert("Hey buddy Good day! Please enter the below details:");
+        };
+    </script>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 30px;">
+    <h1>🎉 Birthday Sparkle 🎂</h1>
+    <form method="POST">
+        <label>Enter your name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Select your gender:</label><br>
+        <input type="radio" name="gender" value="Male" required> Male
+        <input type="radio" name="gender" value="Female" required> Female<br><br>
+
+        <label>Enter your date of birth:</label><br>
+        <input type="date" name="dob" required><br><br>
+
+        <input type="submit" value="Tell Me!">
+    </form>
+
+    {% if message %}
+        <h3 style="margin-top: 30px; color: green;">{{ message }}</h3>
+    {% endif %}
+</body>
+</html>
