@@ -1,0 +1,27 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - master  # Change this if you're using another branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t birthday-app .
+
+      - name: Push Docker image to EC2
+        run: |
+          scp -i ${{ secrets.EC2_KEY }} -o StrictHostKeyChecking=no docker-compose.yml ec2-user@${{ secrets.EC2_IP }}:/home/ec2-user/
+          ssh -i ${{ secrets.EC2_KEY }} -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} "docker-compose up -d"
+
