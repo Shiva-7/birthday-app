@@ -22,6 +22,5 @@ jobs:
 
       - name: Push Docker image to EC2
         run: |
-          scp -i ${{ secrets.EC2_KEY }} -o StrictHostKeyChecking=no docker-compose.yml ec2-user@${{ secrets.EC2_IP }}:/home/ec2-user/
-          ssh -i ${{ secrets.EC2_KEY }} -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} "docker-compose up -d"
-
+          scp -i ${{ secrets.EC2_KEY }} -o StrictHostKeyChecking=no app.py Dockerfile requirements.txt ec2-user@${{ secrets.EC2_IP }}:/home/ec2-user/
+          ssh -i ${{ secrets.EC2_KEY }} -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} "docker build -t birthday-app . && docker run -d -p 80:5000 birthday-app"
