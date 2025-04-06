@@ -17,7 +17,7 @@ def calculate_age_and_days(dob):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    message = ""
+    message = None
     if request.method == 'POST':
         name = request.form['name']
         gender = request.form['gender']
